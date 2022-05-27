@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "956391050805",
+    "project_id": "flutter-karol",
+    "storage_bucket": "flutter-karol.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:956391050805:android:3b1146dc799637a31f2b7c",
+        "android_client_info": {
+          "package_name": "com.karol.flutter_application_karol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "956391050805-is90jiouqson91i1e08idu6up3ti71uv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrQO_xe5QpJS9TgM7owx9exaUH-LR0sK0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "956391050805-is90jiouqson91i1e08idu6up3ti71uv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
