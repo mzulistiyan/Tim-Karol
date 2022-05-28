@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_hackathon_karol/cubit/cart_cubit.dart';
 import 'package:flutter_application_hackathon_karol/cubit/food_cubit.dart';
+import 'package:flutter_application_hackathon_karol/cubit/subscription_cubit.dart';
 import 'package:flutter_application_hackathon_karol/cubit/transaction_cubit.dart';
 
 import 'package:flutter_application_hackathon_karol/ui/pages/splash_screen.dart';
@@ -41,6 +42,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => HistoryCubit(),
+        ),
+        BlocProvider(
+          create: (context) => SubscriptionCubit(),
         ),
       ],
       child: const GetMaterialApp(

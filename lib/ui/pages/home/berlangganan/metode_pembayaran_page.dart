@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_hackathon_karol/cubit/subscription_cubit.dart';
 import 'package:flutter_application_hackathon_karol/shared/theme.dart';
 import 'package:flutter_application_hackathon_karol/ui/pages/home/berlangganan/metode_pembayaran_detail_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/route_manager.dart';
 
 class MetodePembayaran extends StatefulWidget {
@@ -14,6 +17,7 @@ class _MetodePembayaranState extends State<MetodePembayaran> {
   int? _value = 0;
   @override
   Widget build(BuildContext context) {
+    User? user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       backgroundColor: Global.grey01,
       appBar: AppBar(
@@ -130,37 +134,64 @@ class _MetodePembayaranState extends State<MetodePembayaran> {
                 const SizedBox(
                   height: 25,
                 ),
-                SizedBox(
-                  height: 40,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4),
+                BlocConsumer<SubscriptionCubit, SubscriptionState>(
+                  listener: (context, state) {
+                    if (state is SubscriptionSuccess) {
+                      Get.to(const MetodePembayaranDetatilPage());
+                    } else if (state is SubscriptionFailed) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.red,
+                          content: Text(state.error),
+                        ),
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state is SubscriptionLoading) {
+                      return Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 30),
+                        child: const CircularProgressIndicator(),
+                      );
+                    }
+                    return SizedBox(
+                      height: 40,
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                          backgroundColor:
+                              MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                              if (states.contains(MaterialState.pressed)) {
+                                return const Color(0xff5140BC);
+                              } else if (states
+                                  .contains(MaterialState.disabled)) {
+                                return const Color(0xff5140BC);
+                              }
+                              return const Color(
+                                  0xff5140BC); // Use the component's default.
+                            },
+                          ),
+                        ),
+                        onPressed: () {
+                          context
+                              .read<SubscriptionCubit>()
+                              .createSubscription(user!.uid.toString());
+                        },
+                        child: Text(
+                          'Lanjutkan Pembayaran',
+                          style: Global.semiBoldTextStyle12
+                              .copyWith(color: Colors.white),
                         ),
                       ),
-                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                        (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.pressed)) {
-                            return const Color(0xff5140BC);
-                          } else if (states.contains(MaterialState.disabled)) {
-                            return const Color(0xff5140BC);
-                          }
-                          return const Color(
-                              0xff5140BC); // Use the component's default.
-                        },
-                      ),
-                    ),
-                    onPressed: () {
-                      Get.to(const MetodePembayaranDetatilPage());
-                    },
-                    child: Text(
-                      'Lanjutkan Pembayaran',
-                      style: Global.semiBoldTextStyle12
-                          .copyWith(color: Colors.white),
-                    ),
-                  ),
+                    );
+                  },
                 ),
                 const SizedBox(
                   height: 25,

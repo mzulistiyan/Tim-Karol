@@ -65,7 +65,6 @@ class LoginPage extends StatelessWidget {
               ),
               BlocConsumer<AuthCubit, AuthState>(
                 listener: (context, state) {
-                  // TODO: implement listener
                   if (state is AuthSuccess) {
                     Get.off(HomePage());
                   } else if (state is AuthFailed) {
@@ -84,8 +83,6 @@ class LoginPage extends StatelessWidget {
                     );
                   }
                   return PrimaryButton('Masuk', () {
-                    print(emailController.text);
-                    print(passwordController.text);
                     context.read<AuthCubit>().signIn(
                           email: emailController.text,
                           password: passwordController.text,

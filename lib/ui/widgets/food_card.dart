@@ -16,7 +16,7 @@ class FoodCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => Get.to(DetailFoodPage(food)),
       child: Container(
-        margin: const EdgeInsets.only(right: 10, top: 10),
+        margin: const EdgeInsets.only(right: 5, top: 10, left: 5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
           color: Colors.white,

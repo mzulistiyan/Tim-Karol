@@ -38,7 +38,7 @@ class EasyTouchPage extends StatelessWidget {
               children: [
                 SizedBox(
                   width: 100,
-                  height: 100,
+                  height: 150,
                   child: FlutterRipple(
                     child: const Icon(Icons.bluetooth,
                         size: 40, color: Colors.white),

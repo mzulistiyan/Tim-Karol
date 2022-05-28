@@ -11,10 +11,28 @@ class FoodService {
       List<FoodModel> foods = result.docs.map((e) {
         return FoodModel.fromJson(e.id, e.data() as Map<String, dynamic>);
       }).toList();
-      print(foods);
+
       return foods;
     } catch (e) {
-      throw e;
+      rethrow;
+    }
+  }
+
+  Future<List<FoodModel>> fetchFoodsSubsctiption(String id) async {
+    try {
+      QuerySnapshot result = await FirebaseFirestore.instance
+          .collection('subscriptions')
+          .doc('userid')
+          .collection('food')
+          .where('userId', isEqualTo: id)
+          .get();
+      List<FoodModel> foods = result.docs.map((e) {
+        return FoodModel.fromJson(e.id, e.data() as Map<String, dynamic>);
+      }).toList();
+
+      return foods;
+    } catch (e) {
+      rethrow;
     }
   }
 }

@@ -30,18 +30,6 @@ class _HistoryPageState extends State<HistoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    HistoryCubit historyCubit = BlocProvider.of<HistoryCubit>(context);
-
-    Widget listHistory(List<HistoryModel> transaction) {
-      return Container(
-        child: Column(
-          children: transaction.map((HistoryModel e) {
-            return HistoryCard(e);
-          }).toList(),
-        ),
-      );
-    }
-
     return Scaffold(
       backgroundColor: Global.grey01,
       appBar: PreferredSize(
@@ -122,29 +110,133 @@ class _HistoryPageState extends State<HistoryPage> {
           child: ListView(
         children: [
           Container(
-            child: BlocConsumer<HistoryCubit, HistoryState>(
-              listener: (context, state) {
-                if (state is HistoryFailed) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: Colors.red,
-                      content: Text(state.error),
+            child: Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(top: 15, left: 24, right: 24),
+                  width: double.infinity,
+                  height: 150,
+                  decoration: const BoxDecoration(
+                      color: Color(0xffFFF8F4),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10))),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 10),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Burger',
+                              style: Global.regulerTextStyle16,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              '89',
+                              style: Global.regulerTextStyle18,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            const Text(
+                              'mg',
+                              style: TextStyle(fontSize: 8),
+                            ),
+                            Text(
+                              '/',
+                              style: Global.regulerTextStyle18,
+                            ),
+                            Text(
+                              '100gre',
+                              style: const TextStyle(fontSize: 8),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              height: 35,
+                              width: 170,
+                              child: Text(
+                                'Masukkan jumlah makanan yang dikonsumsi (dalam gram)',
+                                style: Global.regulerTextStyle12,
+                              ),
+                            ),
+                            Container(
+                              width: 70,
+                              height: 27,
+                              decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: const Color(0xffB4B4B4)),
+                                color: Colors.white,
+                              ),
+                              child: Center(
+                                child: TextFormField(
+                                  textAlign: TextAlign.center,
+                                  style: Global.mediumTextStyle12,
+                                  decoration: InputDecoration(
+                                      hintStyle: Global.mediumTextStyle12,
+                                      hintText: 'Kalori'),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
                     ),
-                  );
-                }
-              },
-              builder: (context, state) {
-                if (state is HistorySuccess) {
-                  return listHistory(state.historys);
-                }
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              },
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  height: 40,
+                  margin: const EdgeInsets.symmetric(horizontal: 24),
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10))),
+                  child: Center(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 18, vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            'Total',
+                            style: Global.lightTextStyle12
+                                .copyWith(color: Colors.black),
+                          ),
+                          const SizedBox(width: 10),
+                          Text(
+                            '89',
+                            style: Global.regulerTextStyle14
+                                .copyWith(color: Colors.black),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
+          )
         ],
       )),
+      bottomNavigationBar: customBottom(),
     );
   }
 
@@ -212,23 +304,13 @@ class _HistoryPageState extends State<HistoryPage> {
         });
   }
 
-  Widget customBottom(List<HistoryModel> food) {
-    HistoryModel historyCustom;
+  Widget customBottom() {
     return BlocBuilder<CartCubit, CartState>(
       builder: (context, state) {
         return SizedBox(
-          height: 165,
+          height: 100,
           child: Column(
             children: [
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 24),
-                child: PrimaryButton('+ Tambah Makanan', () {
-                  Get.to(HomePage());
-                }),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: 50,
@@ -245,7 +327,7 @@ class _HistoryPageState extends State<HistoryPage> {
                           style: Global.lightTextStyle14,
                         ),
                         Text(
-                          '',
+                          '90',
                           style: Global.semiBoldTextStyle18,
                         )
                       ],

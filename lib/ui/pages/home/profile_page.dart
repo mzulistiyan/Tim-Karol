@@ -13,6 +13,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Global.grey01,
       appBar: AppBar(
         iconTheme: const IconThemeData(
           color: Colors.black, //change your color here
@@ -43,12 +44,78 @@ class ProfilePage extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           }
-          return Center(
+          return Padding(
+            padding: const EdgeInsets.all(24),
             child: Column(
               children: [
-                PrimaryButton('Logout', () {
-                  context.read<AuthCubit>().signOut();
-                })
+                GestureDetector(
+                  onTap: () => Get.to(const ProfilePage()),
+                  child: Image.asset(
+                    'assets/icons/Ellipse_person.png',
+                    width: 91,
+                    height: 91,
+                  ),
+                ),
+                const SizedBox(height: 15),
+                Text(
+                  'Muhammad Syariful Umam',
+                  style: Global.mediumTextStyle18,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  width: double.infinity,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Container(
+                    padding: const EdgeInsets.all(12),
+                    child: Text(
+                      'Edit Profile',
+                      style: Global.mediumTextStyle12,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  width: double.infinity,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Container(
+                    padding: const EdgeInsets.all(12),
+                    child: Text(
+                      'Ubah Password',
+                      style: Global.mediumTextStyle12,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                GestureDetector(
+                  onTap: () => context.read<AuthCubit>().signOut(),
+                  child: Container(
+                    width: double.infinity,
+                    height: 40,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Container(
+                      padding: const EdgeInsets.all(12),
+                      child: Text(
+                        'Keluar',
+                        style: Global.mediumTextStyle12
+                            .copyWith(color: Colors.red),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           );

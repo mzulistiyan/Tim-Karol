@@ -126,6 +126,21 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             Container(
+              margin: const EdgeInsets.symmetric(horizontal: 24),
+              height: 40,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: const Color(0xffFFF8F4),
+              ),
+              child: Center(
+                child: Text(
+                  'Belum Tervalidasi',
+                  style: Global.semiBoldTextStyle14
+                      .copyWith(color: const Color(0xffC53841)),
+                ),
+              ),
+            ),
+            Container(
               padding: const EdgeInsets.all(24),
               child: Column(
                 children: [
